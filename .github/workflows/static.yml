@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holodesk - Assistenza Clienti</title>
+    <style>
+        :root {
+            --primary-color: #4a86e8;
+            --secondary-color: #34a853;
+            --accent-color: #ea4335;
+            --light-color: #f8f9fa;
+            --dark-color: #202124;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f7;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            margin-right: 10px;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), #7048e8);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 30px;
+            padding: 5px 20px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .search-box input {
+            flex: 1;
+            border: none;
+            padding: 15px 0;
+            font-size: 16px;
+            outline: none;
+        }
+        
+        .search-box button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .features {
+            padding: 80px 0;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--light-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            font-size: 24px;
+        }
+        
+        .feature-card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+        
+        .faq {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 32px;
+            color: var(--dark-color);
+            margin-bottom: 20px;
+        }
+        
+        .section-title p {
+            font-size: 18px;
+            color: #5f6368;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .accordion {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .accordion-item {
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 15px;
+        }
+        
+        .accordion-header {
+            padding: 20px 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+        }
+        
+        .accordion-content {
+            padding: 0 0 20px;
+            display: none;
+        }
+        
+        .accordion-content.active {
+            display: block;
+        }
+        
+        .contact {
+            padding: 80px 0;
+            background-color: var(--light-color);
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .contact-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 24px;
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 40px 0;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+        
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #e0e0e0;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            text-decoration: none;
+            color: #a0a0a0;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            margin-top: 40px;
+            text-align: center;
+            color: #a0a0a0;
+            border-top: 1px solid #444;
+            padding-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+            }
+            
+            .hero h1 {
+                font-size: 28px;
+            }
+            
+            .features-grid, .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">H</div>
+                    Holodesk
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#features">Funzionalità</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#contact">Contatti</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Assistenza per il tuo Holodesk</h1>
+            <p>Trova risposte a domande comuni, guide e supporto per il tuo assistente vocale Holodesk.</p>
+            <div class="search-box">
+                <input type="text" placeholder="Cerca aiuto...">
+                <button>Cerca</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Le funzionalità di Holodesk</h2>
+                <p>Scopri tutto ciò che puoi fare con il tuo assistente vocale intelligente</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎵</div>
+                    <h3>Riproduzione Spotify</h3>
+                    <p>Ascolta la tua musica preferita su Spotify con un semplice comando vocale. Puoi chiedere brani specifici, artisti, album, playlist o generi musicali.</p>
+                    <p><strong>Prova a dire:</strong> "Holodesk, riproduci l'ultimo album di Måneskin su Spotify" o "Holodesk, riproduci la mia playlist Relax".</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3>Gestione Note</h3>
+                    <p>Crea, modifica ed elimina note facilmente con la tua voce. Holodesk ti permette di organizzare i tuoi pensieri senza dover usare le mani.</p>
+                    <p><strong>Prova a dire:</strong> "Holodesk, aggiungi una nota: comprare il latte" o "Holodesk, elimina la nota sul latte".</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⏰</div>
+                    <h3>Promemoria e Timer</h3>
+                    <p>Imposta promemoria per eventi futuri o timer per attività immediate. Non dimenticare mai più un appuntamento importante.</p>
+                    <p><strong>Prova a dire:</strong> "Holodesk, ricordami di chiamare mamma domani alle 18" o "Holodesk, imposta un timer di 20 minuti per la pasta".</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌤️</div>
+                    <h3>Previsioni Meteo</h3>
+                    <p>Ottieni aggiornamenti in tempo reale sulle condizioni meteorologiche della tua zona o di qualsiasi altra località.</p>
+                    <p><strong>Prova a dire:</strong> "Holodesk, che tempo fa oggi a Milano?" o "Holodesk, ci sarà pioggia nel weekend?"</p>
+                </div>
+        </div>
+    </section>
+
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-title">
+                <h2>Domande Frequenti</h2>
+                <p>Risposte alle domande più comuni sul tuo assistente vocale Holodesk</p>
+            </div>
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        Come faccio a collegare il mio account Spotify a Holodesk?
+                        <span>+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Per collegare il tuo account Spotify a Holodesk, segui questi passaggi:</p>
+                        <ol>
+                            <li>Apri l'app Holodesk sul tuo smartphone</li>
+                            <li>Vai su Impostazioni > Servizi collegati</li>
+                            <li>Seleziona "Spotify" dall'elenco</li>
+                            <li>Tocca "Collega account" e segui le istruzioni</li>
+                            <li>Accedi con le tue credenziali Spotify e autorizza l'accesso</li>
+                        </ol>
+                        <p>Una volta completato, potrai controllare Spotify con comandi vocali.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        Holodesk funziona senza connessione Internet?
+                        <span>+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Holodesk richiede una connessione Internet per la maggior parte delle sue funzionalità, poiché utilizza il cloud per elaborare i comandi vocali e accedere a servizi come Spotify, previsioni meteo e altre informazioni online.</p>
+                        <p>Tuttavia, alcune funzioni di base come i timer, la sveglia e alcune note salvate localmente potrebbero funzionare anche offline, ma con capacità limitate.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        Come posso modificare la lingua di Holodesk?
+                        <span>+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Per modificare la lingua di Holodesk:</p>
+                        <ol>
+                            <li>Apri l'app Holodesk sul tuo dispositivo</li>
+                            <li>Vai su Impostazioni > Preferenze > Lingua</li>
+                            <li>Seleziona la lingua desiderata dall'elenco</li>
+                            <li>Riavvia Holodesk per applicare le modifiche</li>
+                        </ol>
+                        <p>Holodesk supporta attualmente italiano, inglese, francese, spagnolo, tedesco e portoghese.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        Holodesk può controllare i dispositivi smart home?
+                        <span>+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Sì, Holodesk è compatibile con numerosi dispositivi smart home, tra cui:</p>
+                        <ul>
+                            <li>Luci intelligenti (Philips Hue, LIFX, TP-Link)</li>
+                            <li>Termostati (Nest, Ecobee, Tado)</li>
+                            <li>Prese intelligenti (TP-Link, WeMo, Amazon Smart Plug)</li>
+                            <li>Telecamere di sicurezza (Ring, Nest, Arlo)</li>
+                            <li>Elettrodomestici compatibili con SmartThings o Homekit</li>
+                        </ul>
+                        <p>Per configurare i tuoi dispositivi smart home, vai su Impostazioni > Casa Intelligente nell'app Holodesk e segui le istruzioni per aggiungere i tuoi dispositivi.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        Come posso creare routine personalizzate con Holodesk?
+                        <span>+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Le routine permettono di eseguire più azioni con un solo comando. Per creare una routine:</p>
+                        <ol>
+                            <li>Apri l'app Holodesk</li>
+                            <li>Vai su "Routine" nella sezione principale</li>
+                            <li>Tocca "Crea nuova routine"</li>
+                            <li>Definisci un comando di attivazione (es. "Buongiorno")</li>
+                            <li>Aggiungi le azioni che vuoi includere nella routine (es. leggi le notizie, comunica il meteo, riproduci una playlist)</li>
+                            <li>Salva la routine</li>
+                        </ol>
+                        <p>Ora potrai attivare tutte queste azioni dicendo semplicemente "Holodesk, buongiorno".</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        Holodesk ascolta sempre tutto quello che dico?
+                        <span>+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>No, Holodesk è progettato per iniziare ad ascoltare attivamente solo quando sente la parola di attivazione "Holodesk". Prima di questo, il dispositivo è in modalità di ascolto passivo, cercando solo la parola di attivazione.</p>
+                        <p>Per maggiore privacy, puoi:</p>
+                        <ul>
+                            <li>Disattivare il microfono usando l'apposito pulsante sul dispositivo</li>
+                            <li>Modificare le impostazioni della cronologia vocale nell'app</li>
+                            <li>Eliminare le registrazioni vocali precedenti in qualsiasi momento</li>
+                        </ul>
+                        <p>La tua privacy è importante per noi. Puoi consultare la nostra informativa sulla privacy per maggiori dettagli su come trattiamo i tuoi dati.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Hai bisogno di aiuto?</h2>
+                <p>Il nostro team di supporto è a tua disposizione</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">📧</div>
+                    <h3>Email</h3>
+                    <p>Inviaci un'email e ti risponderemo entro 24 ore</p>
+                    <p><strong>supporto@holodesk.it</strong></p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">💬</div>
+                    <h3>Chat</h3>
+                    <p>Chatta con un operatore in tempo reale</p>
+                    <p><strong>Disponibile 8:00-20:00</strong></p>
+                    <button style="background-color: var(--primary-color); color: white; border: none; padding: 10px 20px; border-radius: 5px; margin-top: 10px; cursor: pointer;">Avvia Chat</button>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">📞</div>
+                    <h3>Telefono</h3>
+                    <p>Chiama il nostro servizio clienti</p>
+                    <p><strong>800 123 456</strong></p>
+                    <p>Lun-Ven: 9:00-18:00</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Holodesk</h3>
+                    <ul>
+                        <li><a href="#">Chi siamo</a></li>
+                        <li><a href="#">Carriere</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Novità</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Prodotti</h3>
+                    <ul>
+                        <li><a href="#">Holodesk Home</a></li>
+                        <li><a href="#">Holodesk Mini</a></li>
+                        <li><a href="#">Holodesk Pro</a></li>
+                        <li><a href="#">Accessori</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Supporto</h3>
+                    <ul>
+                        <li><a href="#">Centro assistenza</a></li>
+                        <li><a href="#">Garanzia</a></li>
+                        <li><a href="#">Riparazioni</a></li>
+                        <li><a href="#">Manuali</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legale</h3>
+                    <ul>
+                        <li><a href="#">Privacy</a></li>
+                        <li><a href="#">Termini di servizio</a></li>
+                        <li><a href="#">Cookie</a></li>
+                        <li><a href="#">GDPR</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Holodesk. Tutti i diritti riservati.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Accordion functionality
+        const accordionHeaders = document.querySelectorAll('.accordion-header');
+        
+        accordionHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                content.classList.toggle('active');
+                
+                if (content.classList.contains('active')) {
+                    content.style.display = 'block';
+                    header.querySelector('span').textContent = '-';
+                } else {
+                    content.style.display = 'none';
+                    header.querySelector('span').textContent = '+';
+                }
+                
+                // Close others
+                accordionHeaders.forEach(otherHeader => {
+                    if (otherHeader !== header) {
+                        const otherContent = otherHeader.nextElementSibling;
+                        otherContent.classList.remove('active');
+                        otherContent.style.display = 'none';
+                        otherHeader.querySelector('span').textContent = '+';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
